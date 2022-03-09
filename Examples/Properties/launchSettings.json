@@ -2,7 +2,7 @@
   "profiles": {
     "Examples": {
       "commandName": "Project",
-      "commandLineArgs": "ExamplePoint2D python.exe  tmp"
+      "commandLineArgs": "ExamplePoint2D C:\\git\\ttd\\Python\\.env\\Scripts\\python.exe .\\Python\\matplotlib_cs.py"
     }
   }
 }

@@ -28,7 +28,6 @@ namespace MatplotlibCS.PlotItems
         /// Конструктор
         /// </summary>
         /// <param name="name">Название линии</param>
-        /// 
         public Line2D(string name) : base(name)
         {
             X = new List<object>();
@@ -50,7 +49,7 @@ namespace MatplotlibCS.PlotItems
         /// </summary>
         [JsonProperty(PropertyName = "markeredgecolor")]
         public Color MarkerEdgeColor { get; set; } = Color.Black;
-        
+
         /// <summary>
         /// Marker's background
         /// </summary>
@@ -69,7 +68,7 @@ namespace MatplotlibCS.PlotItems
         [JsonProperty(PropertyName = "marker")]
         [JsonConverter(typeof(StringEnumConverter))]
         public Marker Marker { get; set; } = Marker.None;
-        
+
         /// <summary>
         /// Размер маркера
         /// </summary>

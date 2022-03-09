@@ -52,14 +52,14 @@ namespace MatplotlibCS
         /// <summary>
         /// Kill web service url
         /// </summary>
-        private string _serviceUrlKillMethod = "http://127.0.0.1:57123/kill";
+        //private string _serviceUrlKillMethod = "http://127.0.0.1:57123/kill";
 
         #endregion
 
         #region .ctor
 
         /// <summary>
-        /// Обёртка над python скриптом, строящим matplotlib графики 
+        /// Обёртка над python скриптом, строящим matplotlib графики
         /// </summary>
         /// <param name="pythonExePath">Путь python.exe</param>
         /// <param name="dasPlotPyPath">Путь dasPlot.py</param>
@@ -89,7 +89,7 @@ namespace MatplotlibCS
 
             try
             {
-                LaunchPythonWebService();
+                await LaunchPythonWebServiceAsync();
 
                 if (!Path.IsPathRooted(task.FileName))
                     task.FileName = Path.Combine(_jsonTempPath, task.FileName);
@@ -129,9 +129,9 @@ namespace MatplotlibCS
         /// <summary>
         /// Check if python web service is alive and if no, launches it
         /// </summary>
-        private void LaunchPythonWebService()
+        private async Task LaunchPythonWebServiceAsync()
         {
-            if (!CheckIfWebServiceIsUpAndRunning())
+            if (!await CheckIfWebServiceIsUpAndRunningAsync())
             {
                 var psi = new ProcessStartInfo(_pythonExePath, _dasPlotPyPath)
                 {
@@ -146,7 +146,7 @@ namespace MatplotlibCS
                 _log.Info($"Starting python process {_pythonExePath}, {_dasPlotPyPath}");
                 Process.Start(psi);
 
-                // when starting python process, it's better to wait for some time to ensure, that 
+                // when starting python process, it's better to wait for some time to ensure, that
                 // web service started
                 Thread.Sleep(2000);
             }
@@ -156,25 +156,28 @@ namespace MatplotlibCS
         /// Check if python web service is alive
         /// </summary>
         /// <returns>true if service is up and running</returns>
-        private bool CheckIfWebServiceIsUpAndRunning()
+        private async Task<bool> CheckIfWebServiceIsUpAndRunningAsync()
         {
             try
             {
                 _log.Info("Check if python web-service is already running");
                 //Creating the HttpWebRequest
-                var request = WebRequest.Create(_serviceUrlCheckAliveMethod) as HttpWebRequest;
+                var client = new HttpClient();
+                using var response = await client.GetAsync(_serviceUrlCheckAliveMethod);
+                //var webrequest = WebRequest.Create(_serviceUrlCheckAliveMethod) as HttpWebRequest;
                 //Setting the Request method HEAD, you can also use GET too.
-                request.Method = "GET";
+                //request.Method = "GET";
                 //Getting the Web Response.
-                var response = request.GetResponse() as HttpWebResponse;
+                //var webresponse = webrequest.GetResponse() as HttpWebResponse;
+                //var response = request.StatusCode
                 //Returns TRUE if the Status code == 200
-                response.Close();
+                //webresponse.Close();
 
                 _log.Info($"Service response status is {response.StatusCode}");
 
                 return (response.StatusCode == HttpStatusCode.OK);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _log.Info("Python web-service wasn't found");
                 //Any exception will returns false.

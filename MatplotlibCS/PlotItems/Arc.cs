@@ -38,13 +38,13 @@ namespace MatplotlibCS.PlotItems
         /// Center x coord
         /// </summary>
         [JsonProperty(PropertyName = "x")]
-        public double X { get; set; }
+        public new double X { get; set; }
 
         /// <summary>
         /// Center y coord
         /// </summary>
         [JsonProperty(PropertyName = "y")]
-        public double Y { get; set; }
+        public new double Y { get; set; }
 
         /// <summary>
         /// Width along x axis

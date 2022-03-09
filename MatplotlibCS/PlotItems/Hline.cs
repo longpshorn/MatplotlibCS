@@ -13,7 +13,7 @@ namespace MatplotlibCS.PlotItems
         /// Y coord of a line
         /// </summary>
         [JsonProperty(PropertyName = "y")]
-        public double[] Y { get; set; }
+        public new double[] Y { get; set; }
 
         [JsonProperty(PropertyName = "xmin")]
         public double XMin { get; set; }
