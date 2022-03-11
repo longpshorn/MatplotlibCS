@@ -14,11 +14,14 @@
 
   <ItemGroup>
     <None Remove="Python\annotations.py" />
+    <None Remove="Python\app.py" />
     <None Remove="Python\arc.py" />
+    <None Remove="Python\build_figure.py" />
     <None Remove="Python\helpers.py" />
     <None Remove="Python\histogram.py" />
     <None Remove="Python\hline.py" />
     <None Remove="Python\line_2d.py" />
+    <None Remove="Python\line_3d.py" />
     <None Remove="Python\matplotlib_cs.py" />
     <None Remove="Python\subplot.py" />
     <None Remove="Python\task.py" />
@@ -27,6 +30,12 @@
 
   <ItemGroup>
     <Content Include="Python\annotations.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Python\build_figure.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Python\app.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Python\arc.py">
@@ -39,6 +48,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Python\hline.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Python\line_3d.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Python\line_2d.py">

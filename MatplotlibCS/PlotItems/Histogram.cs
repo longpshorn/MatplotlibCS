@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -11,7 +11,7 @@ namespace MatplotlibCS.PlotItems
     public class Histogram : PlotItem
     {
         #region Properties
-        
+
         /// <summary>
         /// Data values
         /// </summary>

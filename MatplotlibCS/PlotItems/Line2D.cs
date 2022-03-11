@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -28,7 +27,8 @@ namespace MatplotlibCS.PlotItems
         /// Конструктор
         /// </summary>
         /// <param name="name">Название линии</param>
-        public Line2D(string name) : base(name)
+        public Line2D(string name)
+            : base(name)
         {
             X = new List<object>();
             Y = new List<double>();
@@ -124,7 +124,7 @@ namespace MatplotlibCS.PlotItems
                 {
                     _x.Clear();
                     foreach (var item in value)
-                        _x.Add(((DateTime) item).ToString("yyyy-MM-ddTHH:mm:ss,ffffff"));
+                        _x.Add(((DateTime)item).ToString("yyyy-MM-ddTHH:mm:ss,ffffff"));
                 }
                 else if (firstItem is double || firstItem is int || firstItem is long || firstItem is float)
                 {

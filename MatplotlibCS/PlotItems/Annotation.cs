@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -41,7 +36,7 @@ namespace MatplotlibCS.PlotItems
         [JsonProperty(PropertyName = "fontSize")]
         public double FontSize { get; set; } = 12;
 
-        [JsonProperty(PropertyName = "color")]        
+        [JsonProperty(PropertyName = "color")]
         public Color Color { get; set; } = Color.Black;
 
         /// <summary>

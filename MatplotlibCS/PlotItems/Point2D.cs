@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -16,14 +15,14 @@ namespace MatplotlibCS.PlotItems
         /// Конструктор
         /// </summary>
         /// <param name="name">Название линии</param>
-        /// 
-        public Point2D(string name, double x, double y) : base(name)
+        public Point2D(string name, double x, double y)
+            : base(name)
         {
-            X = new List<object> {x};
-            Y = new List<double> {y};
+            X = new List<object> { x };
+            Y = new List<double> { y };
             MarkerSize = 5;
-            Marker=Marker.Circle;
-            LineStyle=LineStyle.Solid;
+            Marker = Marker.Circle;
+            LineStyle = LineStyle.Solid;
             LineWidth = 1;
         }
 

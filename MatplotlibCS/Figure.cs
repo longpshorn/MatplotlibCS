@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using MatplotlibCS.PlotItems;
+﻿using MatplotlibCS.PlotItems;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MatplotlibCS
 {
@@ -76,7 +75,7 @@ namespace MatplotlibCS
         /// </summary>
         [JsonProperty(PropertyName = "h")]
         public int Height { get; set; } = 1080;
-        
+
         #endregion
 
         public void HealthCheck()

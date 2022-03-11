@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -11,7 +7,7 @@ namespace MatplotlibCS.PlotItems
     {
         void HealthCheck();
     }
-    
+
     [Serializable]
     public class HealthCheckException : Exception
     {
@@ -19,17 +15,18 @@ namespace MatplotlibCS.PlotItems
         {
         }
 
-        public HealthCheckException(string message) : base(message)
+        public HealthCheckException(string message)
+            : base(message)
         {
         }
 
-        public HealthCheckException(string message, Exception inner) : base(message, inner)
+        public HealthCheckException(string message, Exception inner)
+            : base(message, inner)
         {
         }
 
-        protected HealthCheckException(
-            SerializationInfo info,
-            StreamingContext context) : base(info, context)
+        protected HealthCheckException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

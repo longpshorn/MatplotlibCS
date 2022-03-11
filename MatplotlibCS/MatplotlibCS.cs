@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using NLog;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using NLog;
 
 namespace MatplotlibCS
 {
@@ -33,6 +31,11 @@ namespace MatplotlibCS
         /// Путь к скрипту dasPlot.py
         /// </summary>
         private string _dasPlotPyPath;
+
+        /// <summary>
+        /// Path to build_figure.py
+        /// </summary>
+        private string _buildFigurePyPath;
 
         /// <summary>
         /// Путь директории, в которой хранятся временные json-файлы, через которые передаются параметры задачи
@@ -63,11 +66,13 @@ namespace MatplotlibCS
         /// </summary>
         /// <param name="pythonExePath">Путь python.exe</param>
         /// <param name="dasPlotPyPath">Путь dasPlot.py</param>
+        /// <param name="buildFigurePyPath">Path to build_figure.py</param>
         /// <param name="jsonTempPath">Опциональный путь директории, в которой хранятся временные json файлы, через которые передаются данные</param>
-        public MatplotlibCS(string pythonExePath, string dasPlotPyPath, string jsonTempPath = "c:\\MatplotlibCS")
+        public MatplotlibCS(string pythonExePath, string dasPlotPyPath, string buildFigurePyPath, string jsonTempPath = "c:\\MatplotlibCS")
         {
             _pythonExePath = pythonExePath;
             _dasPlotPyPath = dasPlotPyPath;
+            _buildFigurePyPath = buildFigurePyPath;
             _jsonTempPath = jsonTempPath;
             _log = LogManager.GetLogger(typeof(MatplotlibCS).Name);
 
@@ -78,6 +83,23 @@ namespace MatplotlibCS
         #endregion
 
         #region Public methods
+
+        public async Task BuildFigureViaFile(Figure task)
+        {
+            task.HealthCheck();
+
+            try
+            {
+                var json = BuildJson(task);
+                var fullpath = Path.Combine(AppContext.BaseDirectory, $"matplotlib_cs.input.json");
+                await File.WriteAllTextAsync(fullpath, json);
+                await RunPython(fullpath);
+            }
+            catch (Exception ex)
+            {
+                _log.Fatal($"Error while building figure: {ex.Message}\n{ex.StackTrace}");
+            }
+        }
 
         /// <summary>
         /// Выполняет задачу построения графиков
@@ -91,8 +113,7 @@ namespace MatplotlibCS
             {
                 await LaunchPythonWebServiceAsync();
 
-                if (!Path.IsPathRooted(task.FileName))
-                    task.FileName = Path.Combine(_jsonTempPath, task.FileName);
+                var json = BuildJson(task);
 
                 JsonConvert.DefaultSettings = (() =>
                 {
@@ -100,21 +121,10 @@ namespace MatplotlibCS
                     settings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
                     return settings;
                 });
-
-                var serializer = new JsonSerializer() { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
-                var sb = new StringBuilder();
-                using (var writer = new StringWriter(sb))
-                {
-                    serializer.Serialize(writer, task);
-                }
-
-                var json = sb.ToString();
-                using (var client = new HttpClient())
-                {
-                    var content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
-                    var response = await client.PostAsync(_serviceUrlPlotMethod, content);
-                    var responseString = await response.Content.ReadAsStringAsync();
-                }
+                using var client = new HttpClient();
+                var content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(_serviceUrlPlotMethod, content);
+                var responseString = await response.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
@@ -125,6 +135,35 @@ namespace MatplotlibCS
         #endregion
 
         #region Private methods
+
+        private string BuildJson(Figure task)
+        {
+            if (!Path.IsPathRooted(task.FileName))
+                task.FileName = Path.Combine(_jsonTempPath, task.FileName);
+
+            var serializer = new JsonSerializer() { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+            var sb = new StringBuilder();
+            using (var writer = new StringWriter(sb))
+            {
+                serializer.Serialize(writer, task);
+            }
+
+            var json = sb.ToString();
+            return json;
+        }
+
+        private async Task RunPython(string inputfile)
+        {
+            var ps = new ProcessStartInfo
+            {
+                FileName = _pythonExePath,
+                Arguments = $"{_buildFigurePyPath} {inputfile}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true
+            };
+            using Process process = Process.Start(ps);
+            await process.WaitForExitAsync();
+        }
 
         /// <summary>
         /// Check if python web service is alive and if no, launches it
@@ -161,17 +200,8 @@ namespace MatplotlibCS
             try
             {
                 _log.Info("Check if python web-service is already running");
-                //Creating the HttpWebRequest
                 var client = new HttpClient();
                 using var response = await client.GetAsync(_serviceUrlCheckAliveMethod);
-                //var webrequest = WebRequest.Create(_serviceUrlCheckAliveMethod) as HttpWebRequest;
-                //Setting the Request method HEAD, you can also use GET too.
-                //request.Method = "GET";
-                //Getting the Web Response.
-                //var webresponse = webrequest.GetResponse() as HttpWebResponse;
-                //var response = request.StatusCode
-                //Returns TRUE if the Status code == 200
-                //webresponse.Close();
 
                 _log.Info($"Service response status is {response.StatusCode}");
 

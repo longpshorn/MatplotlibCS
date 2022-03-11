@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -51,7 +46,7 @@ namespace MatplotlibCS.PlotItems
 
         [EnumMember(Value = "^")]
         TriangleUp,
-        
+
         [EnumMember(Value = "<")]
         TriangleLeft,
 
@@ -124,7 +119,7 @@ namespace MatplotlibCS.PlotItems
         [EnumMember(Value = "CARETDOWN")]
         Caretdown
     }
-    
+
     /// <summary>
     /// Colors
     /// </summary>

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using MatplotlibCS.PlotItems;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using MatplotlibCS.PlotItems;
-using Newtonsoft.Json;
 
 namespace MatplotlibCS
 {
@@ -75,7 +74,7 @@ namespace MatplotlibCS
         /// </summary>
         [JsonProperty(PropertyName = "__items__")]
         public List<PlotItem> PlotItems { get; set; }
-        
+
         #endregion
 
         #region Indexers

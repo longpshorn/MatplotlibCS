@@ -12,6 +12,7 @@ class Task:
         self.h = 1080
         self.rows = 1
         self.columns = 1
+        self.is3d = False
 
         # initialize object from json, received from c# process
         self.__dict__ = jsonDict

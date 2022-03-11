@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -22,7 +17,8 @@ namespace MatplotlibCS.PlotItems
         /// <param name="angle">rotation in degrees (anti-clockwise)</param>
         /// <param name="theta1">starting angle of the arc in degrees</param>
         /// <param name="theta2">ending angle of the arc in degrees</param>
-        public Arc(string name, double x, double y, double width, double height, double angle, double theta1, double theta2):base(name)
+        public Arc(string name, double x, double y, double width, double height, double angle, double theta1, double theta2)
+            : base(name)
         {
             X = x;
             Y = y;

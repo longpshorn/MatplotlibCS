@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace MatplotlibCS.PlotItems
 {
@@ -21,7 +16,8 @@ namespace MatplotlibCS.PlotItems
         [JsonProperty(PropertyName = "xmax")]
         public double XMax { get; set; }
 
-        public Hline(string name, double[] y, double xmin, double xmax) : base(name)
+        public Hline(string name, double[] y, double xmin, double xmax)
+            : base(name)
         {
             Y = y;
             XMin = xmin;
@@ -29,7 +25,8 @@ namespace MatplotlibCS.PlotItems
             ShowLegend = false;
         }
 
-        public Hline(string name, double y, double xmin, double xmax) : this(name, new[] { y }, xmin, xmax)
+        public Hline(string name, double y, double xmin, double xmax)
+            : this(name, new[] { y }, xmin, xmax)
         {
             ShowLegend = false;
         }

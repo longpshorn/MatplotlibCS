@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MatplotlibCS.PlotItems;
+﻿using MatplotlibCS.PlotItems;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
 
 namespace MatplotlibCS
 {
@@ -76,14 +73,14 @@ namespace MatplotlibCS
 
                 if (firstItem is DateTime)
                 {
-                    if(_x == null)
+                    if (_x == null)
                         _x = new List<object>();
 
                     _x.Clear();
                     foreach (var item in value)
                         _x.Add(((DateTime)item).ToString("yyyy-MM-ddTHH:mm:ss,ffffff"));
                 }
-                else 
+                else
                     throw new ArgumentException("XTimeTicks must be set with List<DateTime> only");
             }
         }
@@ -106,6 +103,4 @@ namespace MatplotlibCS
             //    throw new HealthCheckException("Grid.XTimeTicks and Grid.XMajorTicks must be of the same leangth");
         }
     }
-
-    
 }

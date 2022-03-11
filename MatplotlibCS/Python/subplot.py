@@ -3,6 +3,8 @@ from arc import Arc
 from histogram import Histogram
 from hline import Hline
 from line_2d import Line2D
+from line_3d import Line3D
+from scatter import Scatter
 from vline import Vline
 
 
@@ -22,6 +24,10 @@ class Subplot:
                     self.items.append(Line2D(item))
                 elif item["type"] == "Point2D":
                     self.items.append(Line2D(item))
+                elif item["type"] == "Line3D":
+                    self.items.append(Line3D(item))
+                elif item["type"] == "Scatter":
+                    self.items.append(Scatter(item))
                 elif item["type"] == "Histogram":
                     self.items.append(Histogram(item))
                 elif item["type"] == "Text":
