@@ -48,6 +48,12 @@ namespace MatplotlibCS
         public string YTitle { get; set; }
 
         /// <summary>
+        /// Подпись к оси Z
+        /// </summary>
+        [JsonProperty(PropertyName = "ztitle")]
+        public string ZTitle { get; set; }
+
+        /// <summary>
         /// Индекс subplot-а на figure
         /// </summary>
         [JsonProperty(PropertyName = "index")]
@@ -67,6 +73,9 @@ namespace MatplotlibCS
 
         [JsonProperty(PropertyName = "frameon")]
         public bool LegendBorder { get; set; } = true;
+
+        [JsonProperty(PropertyName = "is3d")]
+        public bool Is3d { get; set; } = false;
 
         /// <summary>
         /// Lines and other plot items. Never add items to this list directly, only set the list itself. For adding/removing

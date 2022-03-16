@@ -97,6 +97,15 @@ namespace MatplotlibCS
         [JsonProperty(PropertyName = "x_tick_rotation")]
         public double XTickRotation { get; set; }
 
+        [JsonProperty(PropertyName = "z_lim")]
+        public double[] ZLim { get; set; }
+
+        [JsonProperty(PropertyName = "z_major_ticks")]
+        public double[] ZMajorTicks { get; set; }
+
+        [JsonProperty(PropertyName = "z_minor_ticks")]
+        public double[] ZMinorTicks { get; set; }
+
         public void HealthCheck()
         {
             //if(XTimeTicks!=null && XTimeTicks.Count>0 && XMajorTicks!=null && XMajorTicks.Length>0 && XMajorTicks.Length!= XTimeTicks.Count)
