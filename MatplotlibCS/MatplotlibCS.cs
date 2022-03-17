@@ -20,37 +20,37 @@ namespace MatplotlibCS
     {
         #region Fields
 
-        private ILogger _log;
+        private readonly ILogger _log;
 
         /// <summary>
         /// Пусть к интерпрететору питона
         /// </summary>
-        private string _pythonExePath;
+        private readonly string _pythonExePath;
 
         /// <summary>
         /// Путь к скрипту dasPlot.py
         /// </summary>
-        private string _dasPlotPyPath;
+        private readonly string _dasPlotPyPath;
 
         /// <summary>
         /// Path to build_figure.py
         /// </summary>
-        private string _buildFigurePyPath;
+        private readonly string _buildFigurePyPath;
 
         /// <summary>
         /// Путь директории, в которой хранятся временные json-файлы, через которые передаются параметры задачи
         /// </summary>
-        private string _jsonTempPath;
+        private readonly string _jsonTempPath;
 
         /// <summary>
         /// Python web service URL
         /// </summary>
-        private string _serviceUrlCheckAliveMethod = "http://127.0.0.1:57123/";
+        private readonly string _serviceUrlCheckAliveMethod = "http://127.0.0.1:57123/";
 
         /// <summary>
         /// Python web service URL
         /// </summary>
-        private string _serviceUrlPlotMethod = "http://127.0.0.1:57123/plot";
+        private readonly string _serviceUrlPlotMethod = "http://127.0.0.1:57123/plot";
 
         /// <summary>
         /// Kill web service url
@@ -213,20 +213,6 @@ namespace MatplotlibCS
                 //Any exception will returns false.
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Возвращает новый путь, по которому можно сохранить json задачи
-        /// </summary>
-        /// <returns></returns>
-        private string GetNewJsonPath()
-        {
-            if (!Directory.Exists(_jsonTempPath))
-            {
-                Directory.CreateDirectory(_jsonTempPath);
-            }
-
-            return Path.Combine(_jsonTempPath, $"task-{DateTime.Now:HHmmssfff}.json");
         }
 
         #endregion
