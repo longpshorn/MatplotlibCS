@@ -126,7 +126,7 @@ namespace MatplotlibCS.PlotItems
                     foreach (var item in value)
                         _x.Add(((DateTime)item).ToString("yyyy-MM-ddTHH:mm:ss,ffffff"));
                 }
-                else if (firstItem is double || firstItem is int || firstItem is long || firstItem is float)
+                else if (firstItem is decimal || firstItem is double || firstItem is int || firstItem is long || firstItem is float)
                 {
                     _x.Clear();
                     foreach (var item in value)
