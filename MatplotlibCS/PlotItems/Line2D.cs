@@ -17,7 +17,7 @@ namespace MatplotlibCS.PlotItems
         /// <summary>
         /// Internal X values string representation
         /// </summary>
-        private List<object> _x = new List<object>();
+        private readonly List<object> _x = new();
 
         #endregion
 
