@@ -187,7 +187,7 @@ namespace MatplotlibCS
 
                 // when starting python process, it's better to wait for some time to ensure, that
                 // web service started
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
         }
 
